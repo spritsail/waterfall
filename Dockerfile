@@ -1,6 +1,6 @@
 FROM spritsail/alpine:3.8
 
-ARG BUNGEECORD_BUILD=1359
+ARG BUNGEECORD_BUILD=1366
 
 LABEL maintainer="Spritsail <sonarr@spritsail.io>" \
       org.label-schema.vendor="Spritsail" \
