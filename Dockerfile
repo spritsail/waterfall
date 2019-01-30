@@ -2,13 +2,13 @@ FROM spritsail/alpine:3.8
 
 ARG BUNGEECORD_BUILD=1390
 
-LABEL maintainer="Spritsail <sonarr@spritsail.io>" \
+LABEL maintainer="Spritsail <bungeecord@spritsail.io>" \
       org.label-schema.vendor="Spritsail" \
-      org.label-schema.name="Sonarr" \
+      org.label-schema.name="Bungeecord" \
       org.label-schema.url="https://www.spigotmc.org/wiki/bungeecord/" \
       org.label-schema.description="A minecraft server proxy" \
       org.label-schema.version=${BUNGEECORD_BUILD} \
-      io.spritsail.version.sonarr=${BUNGEECORD_BUILD}
+      io.spritsail.version.bungeecord=${BUNGEECORD_BUILD}
 
 RUN apk --no-cache add openjdk8-jre && \
     wget -O /bungeecord.jar \
