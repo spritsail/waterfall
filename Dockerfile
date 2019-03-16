@@ -10,7 +10,7 @@ LABEL maintainer="Spritsail <bungeecord@spritsail.io>" \
       org.label-schema.version=${BUNGEECORD_BUILD} \
       io.spritsail.version.bungeecord=${BUNGEECORD_BUILD}
 
-RUN apk --no-cache add openjdk8-jre && \
+RUN apk --no-cache add openjdk8-jre nss && \
     wget -O /bungeecord.jar \
         https://ci.md-5.net/job/BungeeCord/${BUNGEECORD_BUILD}/artifact/bootstrap/target/BungeeCord.jar
 
