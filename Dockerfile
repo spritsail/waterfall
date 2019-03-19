@@ -1,4 +1,4 @@
-FROM spritsail/alpine:3.8
+FROM spritsail/alpine:3.9
 
 ARG BUNGEECORD_BUILD=1398
 
