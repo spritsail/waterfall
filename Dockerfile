@@ -1,6 +1,25 @@
+ARG BUNGEECORD_BUILD=1401
+
+FROM spritsail/alpine:3.9 AS compile
+
+ARG BUNGEECORD_BUILD
+
+WORKDIR /build
+
+RUN apk --no-cache add jq maven openjdk8 nss && \
+    COMMIT="$(wget -O- https://ci.md-5.net/job/BungeeCord/${BUNGEECORD_BUILD}/api/json | \
+        jq -r '.actions[] | select(.["_class"] == "hudson.plugins.git.util.BuildData").buildsByBranchName["refs/remotes/origin/master"].marked.SHA1')" && \
+    wget -O- https://github.com/SpigotMC/BungeeCord/tarball/${COMMIT} \
+        | tar xz --strip-components=1 && \
+    \
+    # Apply custom patches here
+    wget -O- https://patch-diff.githubusercontent.com/raw/SpigotMC/BungeeCord/pull/2615.diff | patch -p1 && \
+    \
+    mvn package -Dbuild.number=${BUNGEECORD_BUILD} -U
+
 FROM spritsail/alpine:3.9
 
-ARG BUNGEECORD_BUILD=1401
+ARG BUNGEECORD_BUILD
 
 LABEL maintainer="Spritsail <bungeecord@spritsail.io>" \
       org.label-schema.vendor="Spritsail" \
@@ -10,9 +29,8 @@ LABEL maintainer="Spritsail <bungeecord@spritsail.io>" \
       org.label-schema.version=${BUNGEECORD_BUILD} \
       io.spritsail.version.bungeecord=${BUNGEECORD_BUILD}
 
-RUN apk --no-cache add openjdk8-jre nss && \
-    wget -O /bungeecord.jar \
-        https://ci.md-5.net/job/BungeeCord/${BUNGEECORD_BUILD}/artifact/bootstrap/target/BungeeCord.jar
+COPY --from=compile /build/bootstrap/target/BungeeCord.jar /bungeecord.jar
+RUN apk --no-cache add openjdk8-jre nss
 
 WORKDIR /config
 VOLUME /config
