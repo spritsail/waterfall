@@ -1,4 +1,4 @@
-ARG BUNGEECORD_BUILD=1401
+ARG BUNGEECORD_BUILD=1412
 
 FROM spritsail/alpine:3.9 AS compile
 
