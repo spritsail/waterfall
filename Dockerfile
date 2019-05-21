@@ -14,7 +14,6 @@ RUN apk --no-cache add jq maven openjdk8 nss && \
     \
     # Apply custom patches here
     wget -O- https://patch-diff.githubusercontent.com/raw/SpigotMC/BungeeCord/pull/2615.diff | patch -p1 && \
-    wget -O- https://github.com/SpigotMC/BungeeCord/compare/${COMMIT}...frebib:chat-fixes.diff | patch -p1 && \
     \
     mvn package -Dbuild.number=${BUNGEECORD_BUILD} -U
 
