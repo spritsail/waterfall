@@ -1,4 +1,4 @@
-ARG WATERFALL_COMMIT=3ce6f14
+ARG WATERFALL_COMMIT=eec0a09
 
 FROM spritsail/alpine:3.14 AS compile
 
