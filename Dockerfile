@@ -1,6 +1,6 @@
 ARG WATERFALL_COMMIT=eec0a09
 
-FROM spritsail/alpine:3.14 AS compile
+FROM spritsail/alpine:3.15 AS compile
 
 ARG WATERFALL_COMMIT
 
@@ -21,7 +21,7 @@ RUN apk --no-cache add bash git jq maven nss openjdk8 && \
         > BungeeCord-Patches/9999-Fire-ServerChatEvent-for-server-sent-chat-messages.patch && \
     ./waterfall build
 
-FROM spritsail/alpine:edge
+FROM spritsail/alpine:3.15
 
 ARG WATERFALL_COMMIT
 
@@ -34,7 +34,7 @@ LABEL maintainer="Spritsail <waterfall@spritsail.io>" \
       io.spritsail.version.waterfall=${WATERFALL_COMMIT}
 
 COPY --from=compile /build/Waterfall-Proxy/bootstrap/target/Waterfall.jar /waterfall.jar
-RUN apk --no-cache add openjdk16-jre nss
+RUN apk --no-cache add openjdk17-jre-headless nss
 
 WORKDIR /config
 VOLUME /config
